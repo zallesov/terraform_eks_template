@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: echo-app-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: echo-app
+  template:
+    metadata:
+      labels:
+        app: echo-app
+    spec:
+      serviceAccountName: ecr-reader
+      containers:
+      - name: echo-app-container
+        image: 516051554155.dkr.ecr.eu-central-1.amazonaws.com/echo-service:latest
+        ports:
+        - containerPort: 8080  # Replace with the port your app listens on
